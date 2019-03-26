@@ -1,19 +1,24 @@
 import React from 'react';
 import Select from 'react-select';
-import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import { FormControl, TextField, CardActionArea, CardActions, Button } from '@material-ui/core';
 
 export const CountriesSearchField = (props) => {
     console.log(props)
     return (
-        <div>
-        <Select 
-            setValue={props.value} 
+                    <Card className="flex-container">
+            <CardContent className="card-content">
+            <Select 
+            value={props.setValue} 
             options={props.options} 
             onChange={props.onChange} 
             isClearable
         />
-
-        <Button onClick={props.onClick} variant='contained' color='primary'>Get</Button>
-        </div>
+            </CardContent>
+                <CardActions className="card-actions">
+                <Button onClick={props.onClick} variant='contained' color='primary'>Get</Button>
+                </CardActions>
+        </Card>
     )
 }

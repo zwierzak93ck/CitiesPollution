@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {CountriesSearchField } from '../components/CountriesSearchField';
+import { openDataBase, loadData, addOrUpdateData } from '../services/DataBase';
 import axios from 'axios';
+import {connect} from 'react-redux';
 
 class CountriesSearchFieldContainer extends Component {
 
@@ -8,7 +10,7 @@ class CountriesSearchFieldContainer extends Component {
         super(props);
 
         this.state = {
-            country: ''
+            country: null
         }
     }
     countries = [
@@ -18,30 +20,55 @@ class CountriesSearchFieldContainer extends Component {
         { value: 'ES', label: 'Spain' }
       ]
 
+      async componentDidMount() {
+        var openedDataBase = await openDataBase();
+
+        await loadData(openedDataBase).then((result) => {
+            this.setState({
+                country: result ? result.data.country : null
+            })
+        });
+
+        window.onbeforeunload = () => { 
+            addOrUpdateData(openedDataBase, this.state);
+        }
+        };
+
     onValueChange = (e) => {
         this.setState({
-            country: e ? e.value : ''
+            country: e ? e : null
         })
     }
 
     getMostPollutedCities = () => {
-        console.log(this.state.country)
-        axios.get('https://api.openaq.org/v1/cities?country=' + this.state.country + '&order_by=count&limit=10&sort=desc')
+        axios.get('https://api.openaq.org/v1/cities?country=' + this.state.country.value + '&order_by=count&limit=10&sort=desc')
         .then((result) => {
-            console.log(result)
+
+            const cities = result.data.results.map(element => {
+                return element.city
+            })
+            console.log(cities)
+            this.props.setCities(cities)
         })
     }
-//https://api.openaq.org/v1/cities?country=PL&order_by=count&limit=10&sort=desc
     render() {
         return(
+            <div> 
             <CountriesSearchField 
                 options={this.countries}
                 onChange={this.onValueChange}
-                value={this.state.country}
+                setValue={this.state.country}
                 onClick={this.getMostPollutedCities}
             />
+            </div>
         )
     }
 }
 
-export default CountriesSearchFieldContainer;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setCities: (cities) => {(dispatch({type: 'SET_CITIES', cities}))}
+    }
+}
+
+export default connect(null, mapDispatchToProps)(CountriesSearchFieldContainer);

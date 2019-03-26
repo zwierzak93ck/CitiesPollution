@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import CountriesSearchFieldContainer from './containers/CountriesSearchFieldContainer';
+import CityInformationContainer from './containers/CityInformationContainer';
 
 class App extends Component {
 
   render() {
     return (
-      <CountriesSearchFieldContainer />
+      <div>
+              <CountriesSearchFieldContainer />
+              <CityInformationContainer />
+      </div>
+
     );
   }
 }
