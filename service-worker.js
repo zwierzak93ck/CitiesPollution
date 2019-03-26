@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/CitiesPollution/precache-manifest.5a62dbbc596e3ba403f4c0c86ffef479.js"
+  "/CitiesPollution/precache-manifest.175e107c73f74ceaee737cfeebc13974.js"
 );
 
 workbox.clientsClaim();
