@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {CityInformation} from '../components/CityInformation';
+import axios from 'axios';
 
 class CityInformationComponent extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            expanded: null
+            expanded: null,
+            description: null
         }
     }
 
@@ -18,6 +20,13 @@ class CityInformationComponent extends Component {
         })
     }
 
+    getDescription = () => {
+        axios.get('https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=radom&format=json')
+            .then((result) => {
+                console.log(result)
+            })
+    }
+
     render() {
         return (
             this.props.cities.map(element => {
@@ -26,6 +35,7 @@ class CityInformationComponent extends Component {
                     key={Date.now() + Math.random()}
                     handleChange={this.handleChange(element)}
                     expanded={this.state.expanded === element}
+                    description={this.getDescription()}
                 />
             })
         )
