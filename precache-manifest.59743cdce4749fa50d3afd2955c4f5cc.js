@@ -4,15 +4,15 @@ self.__precacheManifest = [
     "url": "/CitiesPollution/static/js/runtime~main.246c75f8.js"
   },
   {
-    "revision": "cf9170c44496dc6de28e",
-    "url": "/CitiesPollution/static/js/main.f7eac7a8.chunk.js"
+    "revision": "79ba992ae5f3a924e14c",
+    "url": "/CitiesPollution/static/js/main.edf44cbd.chunk.js"
   },
   {
     "revision": "d75a5bed8bd03322700d",
     "url": "/CitiesPollution/static/js/2.5c5a465c.chunk.js"
   },
   {
-    "revision": "7250e861f7a9ff5af4ac737f1ed9ac1a",
+    "revision": "8184837ea21c004d01e80e22ccdace56",
     "url": "/CitiesPollution/index.html"
   }
 ];
