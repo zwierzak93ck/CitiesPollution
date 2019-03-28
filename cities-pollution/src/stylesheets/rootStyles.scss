@@ -1,0 +1,61 @@
+@import "_mixins";
+@import url("https://fonts.googleapis.com/css?family=Ubuntu:500");
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,500");
+
+body {
+  background-color: #bfbfbf;
+  display: flex;
+  justify-content: center;
+
+  & #root {
+    width: 100%;
+
+    @include large-screens {
+      width: 50%;
+    }
+  }
+}
+
+.title {
+  font-family: Ubuntu;
+  font-size: 24px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  background-color: #dfdfdf !important;
+  margin-bottom: 20px;
+
+  &.search-form {
+    min-height: 250px;
+  }
+
+  & .card-actions {
+    display: flex;
+    justify-content: center;
+
+    & .button {
+      width: 100%;
+    }
+  }
+}
+
+.expansion-panel {
+  background-color: #dfdfdf !important;
+  width: 100%;
+  margin-bottom: 20px;
+
+  & .description {
+    font-family: Roboto;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+  }
+}

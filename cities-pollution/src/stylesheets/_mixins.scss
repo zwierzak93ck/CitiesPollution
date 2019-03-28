@@ -1,0 +1,7 @@
+$large-screens: "(min-device-width: 992px)";
+
+@mixin large-screens {
+  @media #{$large-screens} {
+    @content;
+  }
+}

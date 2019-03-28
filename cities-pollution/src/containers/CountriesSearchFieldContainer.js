@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import {CountriesSearchField } from '../components/CountriesSearchField';
-import { openDataBase, loadData, addOrUpdateData } from '../services/DataBase';
+import { connect } from 'react-redux';
 import axios from 'axios';
-import {connect} from 'react-redux';
+import { CountriesSearchField } from '../components/CountriesSearchField';
+import { openDataBase, loadData, addOrUpdateData } from '../services/DataBase';
+import { validate } from '../services/Validation';
+import { countries } from '../consts'
 
 class CountriesSearchFieldContainer extends Component {
 
@@ -13,14 +15,8 @@ class CountriesSearchFieldContainer extends Component {
             country: null
         }
     }
-    countries = [
-        { value: 'FR', label: 'France' },
-        { value: 'DE', label: 'Germany' },
-        { value: 'PL', label: 'Poland' },
-        { value: 'ES', label: 'Spain' }
-      ]
 
-      async componentDidMount() {
+    async componentDidMount() {
         var openedDataBase = await openDataBase();
 
         await loadData(openedDataBase).then((result) => {
@@ -29,10 +25,10 @@ class CountriesSearchFieldContainer extends Component {
             })
         });
 
-        window.onbeforeunload = () => { 
+        window.onbeforeunload = () => {
             addOrUpdateData(openedDataBase, this.state);
         }
-        };
+    };
 
     onValueChange = (e) => {
         this.setState({
@@ -40,34 +36,60 @@ class CountriesSearchFieldContainer extends Component {
         })
     }
 
-    getMostPollutedCities = () => {
-        axios.get('https://api.openaq.org/v1/cities?country=' + this.state.country.value + '&order_by=count&limit=10&sort=desc')
-        .then((result) => {
+    getMostPollutedCities = async () => {
+        const countryPromise = axios.get('https://api.openaq.org/v1/cities?country=' + this.state.country.value + '&order_by=count&limit=10&sort=desc');
+        const countryResult = await axios.all([countryPromise]);
 
-            const cities = result.data.results.map(element => {
-                return element.city
-            })
-            console.log(cities)
-            this.props.setCities(cities)
+        const citiesNames = countryResult[0].data.results.map((element) => {
+            return element.city;
         })
+
+        return citiesNames;
     }
+
+    getCitiesDescriptions = async (citiesNames) => {
+        const results = [];
+
+        for (let i = 0; i < citiesNames.length; i++) {
+            const promise = axios.get('https://en.wikipedia.org/w/api.php?origin=*&action=query&redirects=1&titles=' +
+                citiesNames[i] + '&format=json&prop=extracts&exintro&explaintext');
+            const result = await axios.all([promise]);
+            results.push(result[0]);
+        }
+
+        const citiesDescriptions = results.map(element => {
+            const pages = element.data.query.pages;
+            const extracts = Object.values(pages)[0].extract;
+            return extracts
+        })
+
+        return citiesDescriptions;
+    }
+
+    setCitiesInformations = async () => {
+        const citiesNames = await this.getMostPollutedCities();
+        const citiesDescriptions = await this.getCitiesDescriptions(citiesNames);
+
+        const informations = { name: citiesNames, description: citiesDescriptions };
+        this.props.setCitiesInformations(informations);
+    }
+
     render() {
-        return(
-            <div> 
-            <CountriesSearchField 
-                options={this.countries}
+        return (
+            <CountriesSearchField
+                options={countries}
                 onChange={this.onValueChange}
                 setValue={this.state.country}
-                onClick={this.getMostPollutedCities}
+                onClick={this.setCitiesInformations}
+                validate={validate(this.state.country ? [this.state.country] : [])}
             />
-            </div>
         )
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setCities: (cities) => {(dispatch({type: 'SET_CITIES', cities}))}
+        setCitiesInformations: (informations) => { (dispatch({ type: 'SET_CITIES_INFORMATIONS', informations })) }
     }
 }
 

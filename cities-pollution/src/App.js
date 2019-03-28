@@ -1,18 +1,28 @@
 import React, { Component } from 'react';
-import CountriesSearchFieldContainer from './containers/CountriesSearchFieldContainer';
+import { connect } from 'react-redux';
 import CityInformationContainer from './containers/CityInformationContainer';
+import CountriesSearchFieldContainer from './containers/CountriesSearchFieldContainer';
+import './stylesheets/rootStyles.scss';
 
 class App extends Component {
 
   render() {
     return (
       <div>
-              <CountriesSearchFieldContainer />
-              <CityInformationContainer />
+        <CountriesSearchFieldContainer />
+        {this.props.informations ?
+          <CityInformationContainer /> : null
+        }
       </div>
 
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    informations: state.informations
+  }
+}
+
+export default connect(mapStateToProps)(App);

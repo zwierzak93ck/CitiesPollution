@@ -1,41 +1,31 @@
-import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import {CityInformation} from '../components/CityInformation';
-import axios from 'axios';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { CityInformation } from '../components/CityInformation';
 
-class CityInformationComponent extends Component {
+class CityInformationContainer extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            expanded: null,
-            description: null
+            expanded: null
         }
     }
 
     handleChange = (panel) => (event, expanded) => {
-        console.log(panel)
         this.setState({
             expanded: expanded ? panel : true
         })
     }
 
-    getDescription = () => {
-        axios.get('https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=radom&format=json')
-            .then((result) => {
-                console.log(result)
-            })
-    }
-
     render() {
         return (
-            this.props.cities.map(element => {
-                return <CityInformation 
-                    city={element}
+            this.props.informations.name.map(name => {
+                return <CityInformation
+                    name={name}
+                    description={this.props.informations.description[this.props.informations.name.indexOf(name)]}
                     key={Date.now() + Math.random()}
-                    handleChange={this.handleChange(element)}
-                    expanded={this.state.expanded === element}
-                    description={this.getDescription()}
+                    handleChange={this.handleChange(name)}
+                    expanded={this.state.expanded === name}
                 />
             })
         )
@@ -44,8 +34,8 @@ class CityInformationComponent extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        cities: state.cities
+        informations: state.informations
     }
 }
 
-export default connect(mapStateToProps)(CityInformationComponent);
+export default connect(mapStateToProps)(CityInformationContainer);
