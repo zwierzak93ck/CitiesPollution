@@ -1,13 +1,13 @@
 {
   "main.css": "/CitiesPollution/static/css/main.c7e2cafa.chunk.css",
-  "main.js": "/CitiesPollution/static/js/main.18f4bb42.chunk.js",
-  "main.js.map": "/CitiesPollution/static/js/main.18f4bb42.chunk.js.map",
+  "main.js": "/CitiesPollution/static/js/main.d91f37f8.chunk.js",
+  "main.js.map": "/CitiesPollution/static/js/main.d91f37f8.chunk.js.map",
   "runtime~main.js": "/CitiesPollution/static/js/runtime~main.246c75f8.js",
   "runtime~main.js.map": "/CitiesPollution/static/js/runtime~main.246c75f8.js.map",
   "static/js/2.1d76d315.chunk.js": "/CitiesPollution/static/js/2.1d76d315.chunk.js",
   "static/js/2.1d76d315.chunk.js.map": "/CitiesPollution/static/js/2.1d76d315.chunk.js.map",
   "index.html": "/CitiesPollution/index.html",
-  "precache-manifest.1b6b20c8f532c633cefbe349a13027b0.js": "/CitiesPollution/precache-manifest.1b6b20c8f532c633cefbe349a13027b0.js",
+  "precache-manifest.f5a5e3b12e65b96973da9b8febfc1c3f.js": "/CitiesPollution/precache-manifest.f5a5e3b12e65b96973da9b8febfc1c3f.js",
   "service-worker.js": "/CitiesPollution/service-worker.js",
   "static/css/main.c7e2cafa.chunk.css.map": "/CitiesPollution/static/css/main.c7e2cafa.chunk.css.map"
 }
