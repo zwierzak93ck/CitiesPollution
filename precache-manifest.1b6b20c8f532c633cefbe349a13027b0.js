@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "/CitiesPollution/static/css/main.c7e2cafa.chunk.css"
   },
   {
-    "revision": "706bda58eaa716593c3ca8f803e5bd24",
+    "revision": "48ee515f6b4cc5d635c17966307c7bf7",
     "url": "/CitiesPollution/index.html"
   }
 ];
