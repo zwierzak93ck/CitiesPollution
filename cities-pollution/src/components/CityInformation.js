@@ -19,7 +19,7 @@ export const CityInformation = (props) => {
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
                 <div className="description">
-                    {props.description ? props.description.replace(/ *\([^)]*\) */g, "") : 'Data could not be retrieved from the Wikipedia API'}
+                    {props.description ? props.description : 'Data could not be retrieved from the Wikipedia API'}
                 </div>
             </ExpansionPanelDetails>
         </ExpansionPanel>

@@ -18,6 +18,7 @@ class CityInformationContainer extends Component {
     }
 
     render() {
+        console.log(this.props.informations)
         return (
             this.props.informations.name.map(name => {
                 return <CityInformation
@@ -27,7 +28,7 @@ class CityInformationContainer extends Component {
                     handleChange={this.handleChange(name)}
                     expanded={this.state.expanded === name}
                 />
-            })
+            }) 
         )
     }
 }

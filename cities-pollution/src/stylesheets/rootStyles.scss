@@ -24,11 +24,11 @@ body {
   align-items: center;
 }
 
-.flex-container {
+div.flex-container {
   display: flex;
   flex-direction: column;
   height: auto;
-  background-color: #dfdfdf !important;
+  background-color: #dfdfdf;
   margin-bottom: 20px;
 
   &.search-form {
@@ -45,8 +45,8 @@ body {
   }
 }
 
-.expansion-panel {
-  background-color: #dfdfdf !important;
+div.expansion-panel {
+  background-color: #dfdfdf;
   width: 100%;
   margin-bottom: 20px;
 
