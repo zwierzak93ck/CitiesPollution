@@ -1,8 +1,8 @@
     
 import axios from 'axios';
     
-     const getMostPollutedCities = async (country) => {
-        const countryPromise = axios.get('https://api.openaq.org/v1/cities?country=' + country + '&order_by=count&limit=10&sort=desc');
+     const getMostPollutedCities = async (country, limit) => {
+        const countryPromise = axios.get('https://api.openaq.org/v1/cities?country=' + country + '&order_by=count&limit=' + limit +'&sort=desc');
         const countryResult = await axios.all([countryPromise]);
 
         return countryResult[0].data.results.map((element) => {
@@ -26,8 +26,8 @@ import axios from 'axios';
         })
     }
 
-    export const setCitiesInformations = async (country) => {
-        const citiesNames = await getMostPollutedCities(country);
+    export const setCitiesInformations = async (country, limit) => {
+        const citiesNames = await getMostPollutedCities(country, limit);
         const citiesDescriptions = await getCitiesDescriptions(citiesNames);
 
         const informations = { name: citiesNames, description: citiesDescriptions }

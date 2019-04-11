@@ -1,5 +1,8 @@
 export const validate = (inputs) => {
+  if (inputs) {
     return inputs.every(element => {
-      return element.length > 0
+      return element
     });
   }
+  return false
+}

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { CountriesSearchField } from '../components/CountriesSearchField';
 import { openDataBase, loadData, addOrUpdateData } from '../services/DataBase';
 import { validate } from '../services/Validation';
-import {setCitiesInformations} from '../services/ApiService';
+import {setCitiesInformations} from '../services/Api';
 import { countries } from '../consts'
 
 class CountriesSearchFieldContainer extends Component {
@@ -12,7 +12,8 @@ class CountriesSearchFieldContainer extends Component {
         super(props);
 
         this.state = {
-            country: null
+            country: '',
+            limit: 0
         }
     }
 
@@ -21,7 +22,8 @@ class CountriesSearchFieldContainer extends Component {
 
         await loadData(openedDataBase).then((result) => {
             this.setState({
-                country: result ? result.data.country : null
+                country: result ? result.data.country : null,
+                limit: result ? result.data.limit : null
             })
         });
 
@@ -31,24 +33,31 @@ class CountriesSearchFieldContainer extends Component {
     };
 
     onValueChange = (e) => {
+        if (e.target) {
+            this.setState({
+                limit: e.target.value
+            })
+        }
+        else {
         this.setState({
             country: e ? e : null
         })
     }
+    }
 
     setCitiesInformations = async () => {
-        this.props.setCitiesInformations(await setCitiesInformations(this.state.country.value))
+        this.props.setCitiesInformations(await setCitiesInformations(this.state.country.value, this.state.limit))
     }
 
     render() {
-        console.log(this.state)
         return (
             <CountriesSearchField
                 options={countries}
                 onChange={this.onValueChange}
-                setValue={this.state.country}
+                country={this.state.country}
+                limit={this.state.limit}
                 onClick={this.setCitiesInformations}
-                validate={validate(this.state.country ? [this.state.country] : [])}
+                validate={validate([this.state.country, this.state.limit])}
             />
         )
     }

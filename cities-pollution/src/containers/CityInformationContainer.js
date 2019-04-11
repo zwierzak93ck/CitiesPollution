@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, lazy, Suspense } from 'react';
 import { connect } from 'react-redux';
-import { CityInformation } from '../components/CityInformation';
+import CircularProgress from '@material-ui/core/CircularProgress';
+const  CityInformation  = lazy(() => import('../components/CityInformation'))
 
 class CityInformationContainer extends Component {
     constructor(props) {
@@ -18,9 +19,9 @@ class CityInformationContainer extends Component {
     }
 
     render() {
-        console.log(this.props.informations)
         return (
-            this.props.informations.name.map(name => {
+            <Suspense fallback={<h1>Loading <CircularProgress color="primary"/></h1>}>
+                { this.props.informations.name.map(name => {
                 return <CityInformation
                     name={name}
                     description={this.props.informations.description[this.props.informations.name.indexOf(name)]}
@@ -28,7 +29,8 @@ class CityInformationContainer extends Component {
                     handleChange={this.handleChange(name)}
                     expanded={this.state.expanded === name}
                 />
-            }) 
+            }) }
+            </Suspense>
         )
     }
 }

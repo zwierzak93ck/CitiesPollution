@@ -5,7 +5,7 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 
-export const CityInformation = (props) => {
+export default function CityInformation(props) {
     return (
         <ExpansionPanel
             className="expansion-panel"

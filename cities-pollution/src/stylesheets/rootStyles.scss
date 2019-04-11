@@ -7,7 +7,7 @@ body {
   display: flex;
   justify-content: center;
 
-  & #root {
+   #root {
     width: 100%;
 
     @include large-screens {
@@ -35,13 +35,18 @@ div.flex-container {
     min-height: 250px;
   }
 
-  & .card-actions {
+   .card-actions {
     display: flex;
     justify-content: center;
 
-    & .button {
+   .button {
       width: 100%;
     }
+  }
+
+ .card-content {
+    display: flex;
+    flex-direction: column;
   }
 }
 
@@ -50,7 +55,7 @@ div.expansion-panel {
   width: 100%;
   margin-bottom: 20px;
 
-  & .description {
+   .description {
     font-family: Roboto;
     font-weight: normal;
     font-style: normal;
